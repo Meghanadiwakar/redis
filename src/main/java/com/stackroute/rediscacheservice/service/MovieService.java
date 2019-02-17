@@ -1,28 +1,32 @@
 package com.stackroute.rediscacheservice.service;
 
 import com.stackroute.rediscacheservice.model.Movie;
-import com.stackroute.rediscacheservice.repository.MovieRepository;
+import com.stackroute.rediscacheservice.repository.MovieMongoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class MovieService {
-    private MovieRepository movieRepository;
+    private MovieMongoRepository movieMongoRepository;
 
-    MovieService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    MovieService(MovieMongoRepository movieMongoRepository) {
+        this.movieMongoRepository = movieMongoRepository;
     }
 
-    public Movie addMovie(Movie movie) {
-        return movieRepository.save(movie);
+    public void addMovie(Movie movie) {
+        movieMongoRepository.save(movie);
     }
 
     public void deleteMovies() {
-        movieRepository.deleteAll();
+        movieMongoRepository.deleteAll();
     }
 
-    public Iterator<Movie> getAllMovies() {
-        return movieRepository.findAll().iterator();
+    public List<Movie> getAllMovies() {
+        return movieMongoRepository.findAll();
+    }
+
+    public Movie getById(int movieId) {
+        return movieMongoRepository.findById(movieId).get();
     }
 }

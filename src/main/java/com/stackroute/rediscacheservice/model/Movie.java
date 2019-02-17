@@ -2,11 +2,13 @@ package com.stackroute.rediscacheservice.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@RedisHash(value = "movie")
+import java.io.Serializable;
+
+@Document(collection = "movies")
 @Data
-public class Movie {
+public class Movie implements Serializable {
     @Id
     private int movieId;
     private String movieTitle;
